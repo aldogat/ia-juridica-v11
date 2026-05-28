@@ -1,0 +1,39 @@
+services:
+  - type: web
+    name: inspol-backend
+    runtime: image
+    repo: https://github.com/aldogat/ia-juridica-v11
+    branch: master
+    dockerfilePath: ./backend/Dockerfile
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: inspol-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: inspol-redis
+          property: connectionString
+
+  - type: web
+    name: inspol-frontend
+    runtime: image
+    repo: https://github.com/aldogat/ia-juridica-v11
+    branch: master
+    dockerfilePath: ./frontend/Dockerfile
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        value: https://inspol-backend.onrender.com
+
+  - type: redis
+    name: inspol-redis
+    plan: free
+
+databases:
+  - name: inspol-db
+    databaseName: inspol_db
+    user: inspol
+    plan: free
