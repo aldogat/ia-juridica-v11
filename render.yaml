@@ -31,6 +31,7 @@ services:
   - type: redis
     name: inspol-redis
     plan: free
+    ipAllowList: []
 
 databases:
   - name: inspol-db
