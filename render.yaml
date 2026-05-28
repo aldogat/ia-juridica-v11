@@ -1,7 +1,7 @@
 services:
   - type: web
     name: inspol-backend
-    runtime: image
+    runtime: docker
     repo: https://github.com/aldogat/ia-juridica-v11
     branch: master
     dockerfilePath: ./backend/Dockerfile
@@ -20,7 +20,7 @@ services:
 
   - type: web
     name: inspol-frontend
-    runtime: image
+    runtime: docker
     repo: https://github.com/aldogat/ia-juridica-v11
     branch: master
     dockerfilePath: ./frontend/Dockerfile
