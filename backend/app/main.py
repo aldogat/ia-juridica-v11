@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.v1 import auth, ai, chat, documents, approvals, transcription
 
 app = FastAPI(title="INSPOL LEGAL AI", version="1.0")
-app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
+app.add_middleware(CORSMiddleware, allow_origins=["*"])
 
 app.include_router(auth.router, prefix="/api/v1/auth", tags=["auth"])
 app.include_router(ai.router, prefix="/api/v1/ai", tags=["ai"])
