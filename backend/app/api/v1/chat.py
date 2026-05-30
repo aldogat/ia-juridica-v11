@@ -8,17 +8,19 @@ router = APIRouter()
 async def multimodal_chat(data: dict):
     api_key = os.getenv("OPENAI_API_KEY")
     if not api_key:
+        # Si no hay variable, buscar en un header X-API-Key (por si acaso)
+        # Pero lo normal es que esté en el entorno
         raise HTTPException(status_code=500, detail="OPENAI_API_KEY no configurada")
     client = OpenAI(api_key=api_key)
     try:
-        # Aceptar tanto "messages" (lista) como "message" (string)
+        # Acepta "messages" (lista) o "message" (string)
         messages = data.get("messages")
         if not messages:
-            message_text = data.get("message", "")
-            if message_text:
-                messages = [{"role": "user", "content": message_text}]
+            msg = data.get("message", "")
+            if msg:
+                messages = [{"role": "user", "content": msg}]
             else:
-                raise HTTPException(status_code=422, detail="Se requiere 'message' o 'messages'")
+                raise HTTPException(status_code=422, detail="Se requiere 'messages' o 'message'")
         response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=messages,
