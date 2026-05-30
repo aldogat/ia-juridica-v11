@@ -29,7 +29,7 @@ async def multimodal_chat(
             messages=[{"role": "user", "content": msg}],
             max_tokens=2048
         )
-        return {"reply": response.choices[0].message.content}
+        return {"response": response.choices[0].message.content}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -47,6 +47,6 @@ async def mensaje_chat(message: str = Form(None)):
             messages=[{"role": "user", "content": message}],
             max_tokens=2048
         )
-        return {"reply": response.choices[0].message.content}
+        return {"response": response.choices[0].message.content}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
