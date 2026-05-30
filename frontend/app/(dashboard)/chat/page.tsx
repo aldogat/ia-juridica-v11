@@ -25,7 +25,7 @@ export default function ChatPage() {
     setFile(null)
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/chat/multimodal`, {
+      const res = await fetch(`https://inspol-backend.onrender.com/api/v1/chat/multimodal`, {
         method: "POST",
         body: formData
       })
